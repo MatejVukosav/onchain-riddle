@@ -45,7 +45,7 @@ export function RiddleCard({ isConnected, riddle }: RiddleCardProps) {
     },
   });
   return (
-    <Card className="w-full min-w-md shadow-xl border-none bg-white/90 backdrop-blur-md">
+    <Card className="w-xl shadow-xl border-none bg-white/90 backdrop-blur-md">
       <CardHeader>
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="text-yellow-500" size={20} />
