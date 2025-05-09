@@ -42,7 +42,7 @@ export function WalletOptions() {
   const { connectors, connect } = useConnect();
 
   return (
-    <div>
+    <>
       {connectors.map((connector) => (
         <WalletOption
           key={connector.uid}
@@ -50,7 +50,7 @@ export function WalletOptions() {
           onClick={() => connect({ connector })}
         />
       ))}
-    </div>
+    </>
   );
 }
 
