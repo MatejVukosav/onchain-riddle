@@ -4,6 +4,7 @@ import { contractConfig } from "@/config";
 import { useState, useEffect } from "react";
 import { useAccount, useReadContract, useWatchContractEvent } from "wagmi";
 import { RiddleCard } from "./components/RiddleCard";
+import { RiddleAutoPublisher } from "./components/RiddleAutoPublisher";
 
 export default function Home() {
   const { isConnected } = useAccount();
@@ -35,6 +36,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col p-6 relative items-center justify-center">
       <div className="flex-1 flex items-center justify-center">
         <RiddleCard isConnected={isConnected} riddle={riddle} />
+        <RiddleAutoPublisher />
       </div>
     </div>
   );
