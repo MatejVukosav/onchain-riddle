@@ -1,14 +1,17 @@
 "use client";
 
-import { contractConfig } from "@/config";
-import { useState, useEffect } from "react";
 import { useAccount, useReadContract, useWatchContractEvent } from "wagmi";
-import { RiddleCard } from "./components/RiddleCard";
+import { useEffect, useState } from "react";
 import { RiddleAutoPublisher } from "./components/RiddleAutoPublisher";
+import { CelebrationOverlay } from "./components/CelebrationOverlay";
 import { toast } from "sonner";
+import { RiddleCard } from "./components/RiddleCard";
+import { contractConfig } from "@/config";
 
 export default function Home() {
   const { isConnected, address } = useAccount();
+  const [showCelebration, setShowCelebration] = useState(false);
+
   const [riddle, setRiddle] = useState<string | null>(null);
 
   const { data, refetch: refetchContractState } = useReadContract({
@@ -21,6 +24,10 @@ export default function Home() {
       setRiddle(data);
     }
   }, [data]);
+
+  function handleCorrectGuess() {
+    setShowCelebration(true);
+  }
 
   useWatchContractEvent({
     ...contractConfig,
@@ -57,6 +64,7 @@ export default function Home() {
       if (logs) {
         const winner = logs[0]?.args.user;
         if (winner === address) {
+          handleCorrectGuess();
           toast(
             `🎉 Congratulations! You solved the riddle! Correct answer is ${logs[0]?.args.guess}`
           );
@@ -72,7 +80,11 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col p-6 relative items-center justify-center">
+    <div className="min-h-screen flex flex-col p-6 relative">
+      <CelebrationOverlay
+        show={showCelebration}
+        onHide={() => setShowCelebration(false)}
+      />
       <div className="flex-1 flex items-center justify-center">
         <RiddleCard isConnected={isConnected} riddle={riddle} />
         <RiddleAutoPublisher />
