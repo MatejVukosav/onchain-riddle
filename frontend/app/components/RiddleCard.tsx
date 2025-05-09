@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Sparkles } from "lucide-react";
 import { SubmitRiddle } from "./SubmitRiddle";
+import { Guesses } from "./Guesses";
+import { contractConfig } from "@/config";
+import { useReadContract, useWatchContractEvent } from "wagmi";
 
 export interface RiddleCardProps {
   riddle: string | null;
@@ -17,6 +20,30 @@ export interface RiddleCardProps {
 }
 
 export function RiddleCard({ isConnected, riddle }: RiddleCardProps) {
+  const { data: triedGuesses, refetch } = useReadContract({
+    ...contractConfig,
+    functionName: "getAllGuesses",
+  });
+
+  useWatchContractEvent({
+    ...contractConfig,
+    eventName: "AnswerAttempt",
+    onLogs(logs) {
+      if (logs) {
+        refetch();
+      }
+    },
+  });
+
+  useWatchContractEvent({
+    ...contractConfig,
+    eventName: "RiddleSet",
+    onLogs(logs) {
+      if (logs) {
+        refetch();
+      }
+    },
+  });
   return (
     <Card className="w-full min-w-md shadow-xl border-none bg-white/90 backdrop-blur-md">
       <CardHeader>
@@ -31,7 +58,9 @@ export function RiddleCard({ isConnected, riddle }: RiddleCardProps) {
       <CardContent>
         <SubmitRiddle isConnected={isConnected} riddle={riddle} />
       </CardContent>{" "}
-      <CardFooter>footer</CardFooter>
+      <CardFooter>
+        <Guesses triedGuesses={triedGuesses} />
+      </CardFooter>
     </Card>
   );
 }
