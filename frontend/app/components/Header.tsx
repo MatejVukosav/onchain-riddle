@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useAccount,
-  useDisconnect,
-  useEnsAvatar,
-  useEnsName,
-  useSwitchChain,
-} from "wagmi";
+import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from "wagmi";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
