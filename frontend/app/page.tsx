@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import { useAccount, useReadContract, useWatchContractEvent } from "wagmi";
 import { RiddleCard } from "./components/RiddleCard";
 import { RiddleAutoPublisher } from "./components/RiddleAutoPublisher";
+import { toast } from "sonner";
 
 export default function Home() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const [riddle, setRiddle] = useState<string | null>(null);
 
   const { data, refetch: refetchContractState } = useReadContract({
@@ -23,11 +24,49 @@ export default function Home() {
 
   useWatchContractEvent({
     ...contractConfig,
+    eventName: "AnswerAttempt",
+    onLogs(logs) {
+      if (logs) {
+        const user = logs[0]?.args.user;
+        if (user === address) {
+          const correct = logs[0]?.args.correct;
+          if (!correct) {
+            toast(`🙈 Oops! That's not the answer. Try again!`);
+          }
+        }
+      }
+    },
+  });
+
+  useWatchContractEvent({
+    ...contractConfig,
     eventName: "RiddleSet",
     onLogs(logs) {
       if (logs) {
         refetchContractState();
+        toast("🧩 A new riddle awaits! Good luck!");
         setRiddle(logs[0]?.args.riddle || "");
+      }
+    },
+  });
+
+  useWatchContractEvent({
+    ...contractConfig,
+    eventName: "Winner",
+    onLogs(logs) {
+      if (logs) {
+        const winner = logs[0]?.args.user;
+        if (winner === address) {
+          toast(
+            `🎉 Congratulations! You solved the riddle! Correct answer is ${logs[0]?.args.guess}`
+          );
+        } else {
+          toast(
+            `Player ${logs[0]?.args.user} guessed the riddle! Correct answer is ${logs[0]?.args.guess}`
+          );
+        }
+
+        refetchContractState();
       }
     },
   });

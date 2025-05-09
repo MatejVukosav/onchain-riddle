@@ -5,6 +5,7 @@ import { Providers } from "@/providers/wagmiProvider";
 import getConfig from "next/config";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zama`}
       >
         <Providers initialState={initialState}>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
