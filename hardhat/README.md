@@ -1,13 +1,20 @@
-# Sample Hardhat Project
+# Onchain Riddle Hardhat
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This directory contains the smart contracts for the Onchain Riddle dApp.
 
-Try running some of the following tasks:
+## Structure
+
+- `contracts/` - Solidity smart contract ( `OnchainRiddle.sol`)
+- `test/` - Contract tests
+
+## Setup
 
 ```shell
 npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+npx hardhat ignition deploy ./ignition/modules/OnchainRiddle.ts
 ```
+
+After deploying contract set contract address in `frontend` env variables

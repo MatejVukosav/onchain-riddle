@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Getting Started
 
-## Getting Started
+## Prerequisites
 
-First, run the development server:
+- Node.js (v18+ recommended)
+- pnpm (or npm/yarn)
+- MetaMask extension
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Clone the repo**
+   git clone https://github.com/MatejVukosav/onchain-riddle.git
+   cd onchain-riddle/frontend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies**
+   pnpm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Configure environment variables**
 
-## Learn More
+   See `frontend/.env.example` for required variables.
 
-To learn more about Next.js, take a look at the following resources:
+4. **Run Hardhat node**
+   cd ..
+   cd hardhat
+   pnpm hardhat node
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. **Deploy contracts**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Follow instructions in `hardhat` folder to run hardhat network and deploy a contract.
 
-## Deploy on Vercel
+6. **Start the frontend**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   Create .env variable file and set environment variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+7. **Start the frontend**
+
+   ```bash
+   pnpm dev
+   ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser and play the game.
+
+## Tech Stack
+
+- Next.js 15
+- React 19
+- wagmi (Ethereum wallet integration)
+- TypeScript
+- Shadcn UI
