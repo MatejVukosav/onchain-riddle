@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/providers/wagmiProvider";
+import getConfig from "next/config";
+import { headers } from "next/headers";
+import { cookieToInitialState } from "wagmi";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,17 +21,22 @@ export const metadata: Metadata = {
   description: "Riddle Game",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(
+    getConfig(),
+    (await headers()).get("cookie")
+  );
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zama`}
       >
-        {children}
+        <Providers initialState={initialState}>{children}</Providers>
       </body>
     </html>
   );
