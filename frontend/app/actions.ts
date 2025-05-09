@@ -11,7 +11,7 @@ const account = privateKeyToAccount(process.env.BOT_PRIVATE_KEY! as Hex);
 
 const customHardhat = {
   ...hardhat,
-  id: 1337, //Required because of Metamask
+  id: 31337, //Required because of Metamask
 };
 
 export async function submitNewRiddleWithBot(chain: Chain | undefined) {

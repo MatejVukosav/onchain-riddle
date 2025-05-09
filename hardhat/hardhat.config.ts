@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "localhost",
   networks: {
     sepolia: {
       url: process.env.SEPOLIA_RPC_URL!,
@@ -13,7 +13,7 @@ const config: HardhatUserConfig = {
       chainId: 11155111,
     },
     hardhat: {
-      chainId: 1337,
+      chainId: 31337,
     },
   },
   paths: {
