@@ -27,7 +27,6 @@ export function Providers({ children, initialState }: Props) {
   return (
     <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        {" "}
         <Header />
         {children}
       </QueryClientProvider>
