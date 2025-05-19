@@ -4,6 +4,7 @@ import {
   cookieStorage,
   createStorage,
   injected,
+  Config,
 } from "wagmi";
 import { metaMask } from "wagmi/connectors";
 import { hardhat, sepolia } from "wagmi/chains";
@@ -15,7 +16,7 @@ declare module "wagmi" {
   }
 }
 
-export function getConfig() {
+export function getConfig(): Config {
   return createConfig({
     chains: [sepolia, hardhat],
     ssr: true,

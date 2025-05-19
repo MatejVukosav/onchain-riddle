@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const mnemonic = process.env.MNEMONIC || "";
+
 const config: HardhatUserConfig = {
   defaultNetwork: "localhost",
   networks: {
@@ -11,9 +13,19 @@ const config: HardhatUserConfig = {
       url: process.env.SEPOLIA_RPC_URL!,
       accounts: [process.env.DEPLOYER_PRIVATE_KEY!],
       chainId: 11155111,
+      // accounts: {
+      //   count: 10,
+      //   mnemonic,
+      //   path: "m/44'/60'/0'/0",
+      // },
     },
     hardhat: {
       chainId: 31337,
+      // accounts: {
+      //   count: 10,
+      //   mnemonic,
+      //   path: "m/44'/60'/0'/0",
+      // },
     },
   },
   paths: {
